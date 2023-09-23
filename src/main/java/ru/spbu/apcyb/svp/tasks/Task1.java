@@ -24,7 +24,7 @@ public class Task1 {
         return input;
     }
 
-    private static int getPositiveInt() {
+    static int getPositiveInt() {
         int number = getIntInput();
 
         while (number <= 0) {
@@ -34,7 +34,7 @@ public class Task1 {
         return number;
     }
 
-    private static int[] getIntArray() {
+    static int[] getIntArray() {
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
         String[] noms = str.split(" ");
