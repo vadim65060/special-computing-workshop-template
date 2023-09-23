@@ -34,20 +34,19 @@ public class Task1 {
         return number;
     }
 
-    private static int[] getPositiveIntArray() {
+    private static int[] getIntArray() {
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
-
-        if (str.matches("(\\d+\\s*)+")) {
-            String[] noms = str.split(" ");
-            int[] array = new int[noms.length];
-
-            for (int i = 0; i < array.length; i++) {
+        String[] noms = str.split(" ");
+        int[] array = new int[noms.length];
+        for (int i = 0; i < array.length; i++) {
+            try {
                 array[i] = Integer.parseInt(noms[i]);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("error: not int input");
             }
-            return array;
         }
-        return new int[0];
+        return array;
     }
 
     private static void printCombinations(List<int[]> combinations, int[] nominals) {
@@ -63,12 +62,7 @@ public class Task1 {
 
     public static void main(String[] args) {
         int sum = getPositiveInt();
-        int[] nominals = getPositiveIntArray();
-
-        if (nominals.length == 0) {
-            logger.info("error: no nominals");
-            return;
-        }
+        int[] nominals = getIntArray();
         nominals = Arrays.stream(nominals).distinct().toArray();
         Arrays.sort(nominals);
 
