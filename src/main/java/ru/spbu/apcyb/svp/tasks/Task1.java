@@ -49,6 +49,16 @@ public class Task1 {
         return array;
     }
 
+    private static int[] getPositiveIntArray() {
+        int[] array = getIntArray();
+        for (int j : array) {
+            if (j <= 0) {
+                throw new IllegalArgumentException("error: int not positive error");
+            }
+        }
+        return array;
+    }
+
     private static void printCombinations(List<int[]> combinations, int[] nominals) {
         for (var line : combinations) {
             for (int i = 0; i < line.length; i++) {
@@ -62,13 +72,11 @@ public class Task1 {
 
     public static void main(String[] args) {
         int sum = getPositiveInt();
-        int[] nominals = getIntArray();
+        int[] nominals = getPositiveIntArray();
         nominals = Arrays.stream(nominals).distinct().toArray();
-        Arrays.sort(nominals);
 
-        CashMachine cashMachine = new CashMachine(nominals);
+        CashMachine cashMachine = new CashMachine(nominals, true);
         List<int[]> combinations = cashMachine.getCombinations(sum);
         logger.info(combinations.size() + "\n");
-        printCombinations(combinations, nominals);
     }
 }

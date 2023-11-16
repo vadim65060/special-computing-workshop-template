@@ -50,11 +50,15 @@ class Task1Test {
     void cashMachineTest() {
         int sum = 12;
         int[] nominals = {2, 3, 4};
-        CashMachine cashMachine = new CashMachine(nominals);
-
         int exp = 7;
+        CashMachine cashMachine = new CashMachine(nominals);
         int act = cashMachine.getCombinations(sum).size();
+        assertEquals(exp, act);
 
+        sum = 4;
+        nominals = new int[]{2, 1};
+        exp = 3;
+        act = cashMachine.getCombinations(sum, nominals).size();
         assertEquals(exp, act);
     }
 }
