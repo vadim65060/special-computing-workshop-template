@@ -6,18 +6,17 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class CashMachine {
-    private static final Logger logger = Logger.getLogger(CashMachine.class.getName());
-    private final ArrayList<int[]> combinations = new ArrayList<>();
+    private final Logger logger = Logger.getLogger(CashMachine.class.getName());
     private boolean logOn = false;
     private int sum;
     private int[] nominals;
 
-    CashMachine(int[] nominals) {
+    public CashMachine(int[] nominals) {
         this.nominals = nominals;
         Arrays.sort(this.nominals);
     }
 
-    CashMachine(int[] nominals, boolean logOn) {
+    public CashMachine(int[] nominals, boolean logOn) {
         this.nominals = nominals;
         Arrays.sort(this.nominals);
         this.logOn = logOn;
@@ -31,9 +30,7 @@ public class CashMachine {
 
     public List<int[]> getCombinations(int sum) {
         this.sum = sum;
-        combinations.clear();
-        findCombinations(sum, new int[nominals.length], 0);
-        return combinations;
+        return findCombinations(sum, new int[nominals.length], 0, new ArrayList<>());
     }
 
     /**
@@ -43,7 +40,7 @@ public class CashMachine {
      * @param nominalsCount массив количества использований каждого номинала
      * @param h             индекс, предотвращающий появления результатов с точностью до перестановки
      */
-    private void findCombinations(int remainder, int[] nominalsCount, int h) {
+    private List<int[]> findCombinations(int remainder, int[] nominalsCount, int h, List<int[]> combinations) {
         int div = sum / nominals[h]; //Количество полных вхождений в число размена
 
         for (int i = 0; i <= div; i++) {
@@ -56,12 +53,13 @@ public class CashMachine {
                         printCombination(combinations.get(combinations.size() - 1));
                     }
                 } else if (h + 1 < nominals.length) {
-                    findCombinations(remainder, nominalsCount.clone(), h + 1);
+                    findCombinations(remainder, nominalsCount.clone(), h + 1, combinations);
                 }
             }
 
             remainder -= nominals[h];
         }
+        return combinations;
 
     }
 
