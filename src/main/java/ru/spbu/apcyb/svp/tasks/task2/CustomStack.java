@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class CustomStack<E> extends Stack<E> {
     private static final String NOT_IMPLEMENTED = "Method not implemented";
-    private final List<E> list;
+    private final transient List<E> list;
 
     public CustomStack() {
         list = new CustomArrayList<>();
@@ -41,8 +41,8 @@ public class CustomStack<E> extends Stack<E> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return list.size() == 0;
+    public synchronized boolean isEmpty() {
+        return list.isEmpty();
     }
 
     @Override
